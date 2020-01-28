@@ -117,7 +117,7 @@
 3.Переменные
 {
 	data element may implement variable.
-	variable is identified within data frame by name.
+	name identifies variable within data frame.
 	global variable is a variable.
 	local variable is a variable.
 	static variable is a variable.

@@ -149,14 +149,15 @@
 		 
 		if F - function, FDF1 - function data frame of F, DE - data element, N1 - name of DE, FDF1 directly contains DE and ( there is no function data frames FDF2 > FDF1 ) and ( there is no block data frame BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.
 		
-		if GDF - global data frame, DE - data element, N1 - name of DE, F - function, FDF1 - function data frame of F, GDF contains DE and ( there is no function data frames FDF2 > FDF1 ) and ( there is no block data frame BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.
+		if GDF - global data frame, DE - data element, N1 - name of DE, F - function, FDF1 - function data frame of F, GDF directly contains DE and ( there is no function data frames FDF2 > FDF1 ) and ( there is no block data frame BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.		
 		
+		if function F contains instruction set IS, N - name that identifies data element DE in block data frame BDF of instruction set IS1 that contains or equal IS and IS1 contains variable declaration VD of variable V with name N1=N and ( there is no instruction set IS2 that IS1 contains IS2 and F contains IS1 and F contains IS2 and IS2 contains variable declaration VD1 with name N2=N and IS2 contains or equal IS ), then N in IS refers V.
 		
+		if  F - function, DE - data element with name N, FDF - function data frame of F, FDF directly contains DE and N identifies DE in context F and F directly contains variable V declaration, then N refers V in F.
 		
-		if function F contains instruction set IS, N - name that identifies data element DE in block data frame BDF of instruction set IS1 that contains or equal IS and IS1 contains variable declaration VD of variable V with name N1=N and ( there is no instruction set IS2 that IS1 contains IS2 and F contains IS1 and F contains IS2 and IS2 contains variable declaration VD1 with name N2=N and IS2 contains or equal IS ) then N in IS refers V.
-		
-		
+		if F - function, DE - data element with name N, GDF - global data frame, GDF directly contains DE and N identifies DE in context F, global block directly contains variable V declaration, then N refers V in F.
 
+		
 	    if variable V with name N and instruction set IS contains name N1=N and N1 in IS refers V then V is visible in IS.
 		
 		if instruction set IS contains variable declaration VD of variable V, BDF - block data frame of IS that BDF > VD then BDF contains data element DE corresponding to V

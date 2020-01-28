@@ -79,18 +79,11 @@
 		if DF - global data frame, then DF > any function data frame or block data frame. (не вложен в них)
 		
 		//Возникновение элемента данных
-		#Добавить имя элемента данных
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and there is act - A of statement - S, function - F contains S and S contains declaration of variable with name N and
-		K1 - count of data elements in DF1 and FDF - function data frame of F and M1 - count of data elements in FDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in FDF in DF2,
-		then K2 = K1 + 1 and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and there is act - A of statement - S, function - F contains S and S contains declaration of variable with name N and K1 - count of data elements in DF1 and FDF - function data frame of F and M1 - count of data elements in FDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in FDF in DF2, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
 		
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and there is act - A of statement - S and block - B contains S and S contains declaration of variable with name N and
-		K1 - count of data elements in DF1 and BDF - block data frame of B and M1 - count of data elements in BDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in BDF in DF2,
-		then N2 = N1 + 1 and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and there is act - A of statement - S and block - B contains S and S contains declaration of variable with name N and	K1 - count of data elements in DF1 and BDF - block data frame of B and M1 - count of data elements in BDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in BDF in DF2, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
 		
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and there is act - A of statement - S and global block - GB contains S and S contains declaration of variable with name N and
-		K1 - count of data elements in DF1 and GDF - global data frame of GB and M1 - count of data elements in GDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in GDF in DF2,
-		then N2 = N1 + 1 and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and there is act - A of statement - S and global block - GB contains S and S contains declaration of variable with name N and	K1 - count of data elements in DF1 and GDF - global data frame of GB and M1 - count of data elements in GDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in GDF in DF2, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
 		
 		if block - B contains declaration of variable - V, A - act of V declaration, then in any act of B all data frames after A and before ending of act of B contains data element that implements V.
 		if function - F contains declaration of variable - V, A - act of V declaration, then in any act of F all data frames after A and before ending of act of F contains data element that implements V.

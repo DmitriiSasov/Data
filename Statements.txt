@@ -137,22 +137,31 @@
 		//Время жизни
 		if V - global variable, then V exists.
 		
+		
+		
 		if V - local variable, F - function, F directly contains V, then V exists in all data frames after V declaration and before act F ending;
 		if V - sta
 		
 		
 		
 		//Упоминания переменной
-		if block data frame BDF of instruction set IS contains data element DE with name N1, FDF - function data frame that FDF1 contains BDF and ( there is no function data frames FDF2 > FDF1 ) and  ( there is no block data frame BDF2 > BDF and BDF2 contains data element with name N2 = N1 )
-		 then N1 identifies DE in context IS.
+		if block data frame BDF of instruction set IS contains data element DE with name N1, FDF1 - function data frame that FDF1 contains BDF and ( there is no function data frames FDF2 > FDF1 ) and  ( there is no block data frame BDF2 > BDF and BDF2 contains data element with name N2 = N1 ) then N1 identifies DE in context IS.
+		 
+		if F - function, FDF1 - function data frame of F, DE - data element, N1 - name of DE, FDF1 directly contains DE and ( there is no function data frames FDF2 > FDF1 ) and ( there is no block data frame BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.
 		
-		if function F contains instruction set IS, N - name that identifies data element DE in block data frame BDF of instruction set IS1 that contains or equal IS and IS1 contains variable declaraction VD of variable V with name N1=N and ( there is no instruction set IS2 that IS1 contains IS2 and F contains IS1 and F contains IS2 and IS2 contains variable declaraction VD1 with name N2=N and IS2 contains or equal IS ) then N in IS refers V  
+		if GDF - global data frame, DE - data element, N1 - name of DE, F - function, FDF1 - function data frame of F, GDF contains DE and ( there is no function data frames FDF2 > FDF1 ) and ( there is no block data frame BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.
+		
+		
+		
+		if function F contains instruction set IS, N - name that identifies data element DE in block data frame BDF of instruction set IS1 that contains or equal IS and IS1 contains variable declaration VD of variable V with name N1=N and ( there is no instruction set IS2 that IS1 contains IS2 and F contains IS1 and F contains IS2 and IS2 contains variable declaration VD1 with name N2=N and IS2 contains or equal IS ) then N in IS refers V.
+		
+		
 
 	    if variable V with name N and instruction set IS contains name N1=N and N1 in IS refers V then V is visible in IS.
 		
-		if instruction set IS contains variable declaraction VD of variable V, BDF - block data frame of IS that BDF > VD then BDF contains data element DE corresponding to V
+		if instruction set IS contains variable declaration VD of variable V, BDF - block data frame of IS that BDF > VD then BDF contains data element DE corresponding to V
 		
-		if instruction set IS is a variable declaraction of variable V or data frame DF<<act of IS contains block data frame BDF with data element DE corresponding to V then V exists in act of IS #??? do we really need it
+		if instruction set IS is a variable declaration of variable V or data frame DF<<act of IS contains block data frame BDF with data element DE corresponding to V then V exists in act of IS #??? do we really need it
 
 		if instruction set IS contains variable declaration of variable V then any act of end IS ends existence of V
 		

@@ -1,219 +1,220 @@
 
 1.Побочный эффект
 {
-	operator may have side effect.
-	alternative contains 1..* conditions.
-	alternative condition is an expression.	
-	alternative condition may contain variable declaration.
-	loop condition contain expression.
-	loop condition may contain variable declaration.
-	for transition may contain expression.
-	for variable initialization may contain variable declaration.
-	for variable initialization may contain expression.
+    operator may have side effect.
+    alternative contains 1..* conditions.
+    alternative condition is an expression. 
+    alternative condition may contain variable declaration.
+    loop condition contain expression.
+    loop condition may contain variable declaration.
+    for transition may contain expression.
+    for variable initialization may contain variable declaration.
+    for variable initialization may contain expression.
 
-	{
-		if SS - simple statement contains expression - E, then every act of SS triggers evaluation of E.
-		if S - switch and S contains comparison expression - E, then beginning of every act of S triggers evaluation of E.
-		if A - alternative and A contains conditions C1..CN, then beginning of every act of A triggers evaluation of C1..Ci, 1 <= i <= n and C1..Ci-1 are false and Ci is true or
-		i = n and C1..CN are false.
-		if L - loop do while or while, C - condition of L, B - body of L, then in every act of L after act of Bi evaluation of C is triggered and if C is true, then Ti+1 act exists.
-		if L - loop for, VI - variable initialization of L and VI contains expression E, then every act of VI triggers evaluation of E.
-		if L - loop for, C - condition of L, B - body of L, T - transition and T contains expression E, then in every act of L act of Ti triggers evaluation of E.
-		if L - loop for, C - condition of L, B - body of L, T - transition, then in every act L after act of Ti evaluation of C is triggered and if C is true, then act of Ti+1 and 
-		Bi+1 exist.
-		if act of A triggers evaluation of expression E and E contains operators that have side effect on operands O_1..O_N and DF1 - data frame before A, then data frame DF2 must be after A and 
-		all data elements in DF2, except data elements consistent with O_1..O_N, have values that equal values in DF1.
-	}
+    {
+        if SS - simple statement, E - expression, SS contains E, then every act of SS triggers evaluation of E.
+        if S - switch, E - comparison expression, S contains E, then beginning of every act of S triggers evaluation of E.
+        if A - alternative, C1..CN - conditions, A contains C1..CN, then beginning of every act of A triggers evaluation of C1..Ci, 1 <= i <= n and C1..Ci-1 are false and Ci is true or i = n and C1..CN are false.
+        if L - loop do while or while, C - condition of L, B - body of L, then in every act of L after act of Bi evaluation of C is triggered and if C is true, then Ti+1 act exists.
+        if L - loop for, VI - variable initialization of L, E - expression, VI contains E, then every act of VI triggers evaluation of E.
+        if L - loop for, C - condition of L, B - body of L, T - transition, E - expression, T contains E, then in every act of L act of Ti triggers evaluation of E.
+        if L - loop for, C - condition of L, B - body of L, T - transition, then in every act L after act of Ti evaluation of C is triggered and if C is true, then act of Ti+1 and 
+        Bi+1 exist.
+        if A - act, E - expression, O_1..O_N - operands of E, DF1..DF2 - data frames, A triggers evaluation of E and E contains operators that have side effect on O_1..O_N and DF1 < (before) A, then DF2 must be after A and all data elements in DF2, except data elements consistent with O_1..O_N, have values that equal values in DF1.
+    }
 
-	name of variable is a mentioning of data element.
+    name of variable is a mentioning of data element.
 
-	{
-		if O - operator . :: -> and N - name of class field, R - return value of O, then R is a mentioning of data element.
-		if O - unary operator * and R - return value of O, then R is a mentioning of data element.
-		if O - operator --a, ++a, [], R - return value of O, then R is a mentioning of data element.
-		if O - operator +=, -=, *=, /=, %=, &=, |=, ^=, <<=, >>=, --a, ++a, a--, a++, then O may have side effect.
-		if O - simple statement, O contains operator that may have side effect, then O may have side effect.
-		if O - binary operator that may have side effect, OP1 - left operand (first) of O, OP2 - right (second) operand of O, then OP1 is a mentioning of data element and OP2 is a value or 
-		mentioning of data element.
-		if O - unary operator that may have side effect, OP - operand of O, then OP is a mentioning of data element.
-		
-	}
+    {
+        if O - operator . :: ->, N - name of class field, R - return value of O, N is a right (second) operand of O then R is a mentioning of data element.
+        if O - unary operator *, R - return value of O, then R is a mentioning of data element.
+        if O - operator --a, ++a, [], R - return value of O, then R is a mentioning of data element.
+        if O - operator +=, -=, *=, /=, %=, &=, |=, ^=, <<=, >>=, --a, ++a, a--, a++, then O may have side effect.
+        if O - simple statement, O contains operator that may have side effect, then O may have side effect.
+        if O - binary operator that may have side effect, OP1 - left operand (first) of O, OP2 - right (second) operand of O, then OP1 is a mentioning of data element and OP2 is a value or mentioning of data element.
+        if O - unary operator that may have side effect, OP - operand of O, then OP is a mentioning of data element.
+        
+    }
 
-	binary operator is a operator.
-	binary operator contains 2 operands.
-	unary operator is a operator.
-	unary operator contains 1 operand.
+    binary operator is a operator.
+    binary operator contains 2 operands.
+    unary operator is a operator.
+    unary operator contains 1 operand.
 }
 
 2.Кадры данных 
 {
-	global data frame contains data elements that implement static 
-	
-	any data frame contains global data frame.
-	
-		
-	{
-		if V - variable, DE - data element, V has data type DT1 and DE implements V and DE has data type DT2, then DT1 equals DT2.
-		
-		//Наличие кадров функций и блоков
-		
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and ( there is beginning of act of function F between DF1 and DF2 ) and N1 - count of function data frames in DF1 and	N2 - count of function data frames in DF2, then N2 = N1 + 1 and N+1th function data frame in DF2 is function data frames of F and 0..N function data frames	are equals in DF1 and DF2.
-				
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and ( there is ending of act of function F between DF1 and DF2 ) and N1 - count of function data frames in DF1 and N2 - count of function data frames in DF2, then N2 = N1 - 1 and 0..N2th function data frames are equals in DF1 and DF2.
-		
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and ( there is beginning of act of instruction set IS between DF1 and DF2 ) and N1 - count of block data frames in DF1 and N2 - count of block data frames in DF2 then N2 = N1 + 1 and N+1th block data frame in DF2 is block data frames of IS and 0..N1 block data frames are equals in DF1 and DF2.
-				
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and ( there is beginning of act of instruction set - IS between DF1 and DF2 ) and N1 - count of block data frames in DF1 and N2 - count of block data frames in DF2, then N2 = N1 - 1 and 0..N2th block data frames are equals in DF1 and DF2.
-		
-		//Порядок следования кадров функций и блоков
-		
-		if A - act of algorithm element and A contains operator that may have side effect, then ( there is data frame after A ).
-		if A - act of algorithm element and A doesn't contains operator that may have side effect, then ( there is no data frame after A ).
-		if A - beginning or ending of instruction set, then ( there is data frame after A ).
-		if A - beginning of main function act, then data frame before A contains only global data frame.
-		if A - fisrt act in trace, then data frame before A contains only empty global data frame.
-		if DF - global data frame, then DF > any function data frame or block data frame. (не вложен в них)
-		
-		//Возникновение элемента данных
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and ( there is act A of statement S ), function F contains S and S contains declaration of variable with name N and K1 - count of data elements in DF1 and FDF - function data frame of F and M1 - count of data elements in FDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in FDF in DF2, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
-		
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and ( there is act A of statement S ) and block B contains S and S contains declaration of variable with name N and K1 - count of data elements in DF1 and BDF - block data frame of B and M1 - count of data elements in BDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in BDF in DF2, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
-		
-		if DF1 - data frame, DF2 - data frame, DF1 and DF2 are sequential data frames and ( there is act A of statement S ) and global block GB contains S and S contains declaration of variable with name N and K1 - count of data elements in DF1 and GDF - global data frame of GB and M1 - count of data elements in GDF in DF1 and K2 - count of data elements in DF2 and M2 - count of data elements in GDF in DF2, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
-		
-		if block - B contains declaration of variable - V, A - act of V declaration, then in any act of B all data frames after A and before ending of act of B contains data element that implements V.
-		if function - F contains declaration of variable - V, A - act of V declaration, then in any act of F all data frames after A and before ending of act of F contains data element that implements V.
-		if global block - G contains declaration of variable - V, A - act of V declaration, then in act of G all data frames after A and before ending of act of G contains data element that implements V. 
-		
-		//Наличие элемента данных
-		
-		global data frame can't contain two equal data elements.
-		block data frame can't contain two equal data elements.
-		function data frame can't contain two equal data elements.
-		
-		if function - F directly contains declaration of variable - V or formal parameter - V, then every function data frame of F contains data element that implements V.
-		if function data frame - FDF of function - F and FDF contains data element - DE, then F contains declaration of variable that DE implements (которую реализует элемент данных DE).
-		if block - B directly contains declaration of variable - V, then every block data frame of B contains data element that implements V.
-		if block data frame - BDF of block - B contains data element - DE, then B contains declaration of variable that DE implements (которую реализует элемент данных DE). 
-		if global block - GB directly contains declaration of variable - V, then every global data frame of GB contains data element that implements V.
-		if global block data frame - GDF of global block - GB contains data element - DE, then GB contains declaration of variable that DE implements (которую реализует элемент данных DE). 
-		
-		
-		
-	}
+    global data frame contains data elements that implement static 
+    
+    any data frame contains global data frame.
+    
+        
+    {
+        if V - variable, DE - data element, DT1..DT2 - data types, V has DT1 and DE implements V and DE has DT2, then DT1 equals DT2.
+        
+        
+        //Наличие кадров функций и блоков
+        
+        if DF1..DF2 - data frames, N1 - count of function data frames in DF1, N2 - count of function data frames in DF2, F - function, DF1 and DF2 are sequential data frames and ( there is beginning of act of F between DF1 and DF2 ), then N2 = N1 + 1 and N+1th function data frame in DF2 is function data frames of F and 0..N function data frames  are equals in DF1 and DF2.
+                
+        if DF1..DF2 - data frames, N1 - count of function data frames in DF1, N2 - count of function data frames in DF2, F - function, DF1 and DF2 are sequential data frames and ( there is ending of act of F between DF1 and DF2 ), then N2 = N1 - 1 and 0..N2th function data frames are equals in DF1 and DF2.
+        
+        if DF1..DF2 - data frames, N1 - count of block data frames in DF1, N2 - count of block data frames in DF2, IS - instruction set, DF1 and DF2 are sequential data frames and ( there is beginning of act of IS between DF1 and DF2 ), then N2 = N1 + 1 and N+1th block data frame in DF2 is block data frames of IS and 0..N1 block data frames are equals in DF1 and DF2.
+                
+        if DF1..DF2 - data frames, N1 - count of block data frames in DF1, N2 - count of block data frames in DF2, IS - instruction set, DF1 and DF2 are sequential data frames and ( there is beginning of act of IS between DF1 and DF2 ), then N2 = N1 - 1 and 0..N2th block data frames are equals in DF1 and DF2.
+        
+        
+        //Порядок следования кадров функций и блоков
+        
+        if A - act of algorithm element, A contains operator that may have side effect, then ( there is data frame after A ).
+        if A - act of algorithm element, A doesn't contains operator that may have side effect, then ( there is no data frame after A ).
+        if A - beginning or ending of instruction set, then ( there is data frame after A ).
+        if A - beginning of main function act, then data frame before A contains only global data frame.
+        if A - fisrt act in trace, then data frame before A contains only empty global data frame.
+        if DF - global data frame, then DF > any function data frame or block data frame. (не вложен в них)
+        
+        
+        //Возникновение элемента данных
+            
+        if DF1..DF2 - data frames, S - statement, F - function, K1 - count of data elements in DF1, FDF - function data frame of F, M1 - count of data elements in FDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in FDF in DF2,  DF1 and DF2 are sequential data frames and DF1 and DF2 contains FDF and ( there is act A of S between DF1 and DF2) and F contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+                
+        if DF1..DF2 - data frames, S - statement, IS - instruction set, K1 - count of data elements in DF1, BDF - block data frame of IS, M1 - count of data elements in BDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in BDF in DF2, DF1 and DF2 are sequential data frames and DF1 and DF2 contains BDF ( there is act A of S between DF1 and DF2 ) and IS contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+        
+        if DF1..DF2 - data frames, S - statement, BG - global block, K1 - count of data elements in DF1, GDF - global data frame of GB, M1 - count of data elements in GDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in GDF in DF2, DF1 and DF2 are sequential data frames and ( there is act A of S between DF1 and DF2 ) and GB contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+                
+        if IS - instruction set, V - variable, VD - declaration of V, A - act of VD, IS contains VD, then in any act of IS all data frames after A and before ending of act of IS contains data element that implements V.
+        
+        if F - function, V - variable, VD - declaration of V, A - act of VD, F contains VD, then in any act of F all data frames after A and before ending of act of F contains data element that implements V.
+        
+        if GB - global block, V - variable, VD - declaration of V, A - act of VD, GB contains VD, then in any act of GB all data frames after A and before ending of act of GB contains data element that implements V.
+        
+        
+        //Наличие элемента данных
+        
+        global data frame can't contain two equal data elements.
+        block data frame can't contain two equal data elements.
+        function data frame can't contain two equal data elements.
+        
+        if F - function, V - variable or formal parameter, F directly contains declaration of V, then every function data frame of F directly contains data element that implements V.
+        if F - function, function data frame - FDF of F, DE - data element, FDF directly contains DE, then F directly contains declaration of variable that DE implements (которую реализует элемент данных DE).
+        if IS - instruction set, V - variable, VD - declaration of V, IS directly contains VD, then every block data frame of IS directly contains data element that implements V.
+        if IS - instruction set, block data frame - BDF of IS, DE - data element, BDF directly contains DE, then IS directly contains declaration of variable that DE implements (которую реализует элемент данных DE). 
+        if GB - global block, V - variable, VD - declaration of V, GB directly contains VD, then every global data frame of GB directly contains data element that implements V.
+        if GB - global block, GDF - global data frame of GB, DE - data element, GDF directly contains DE, then GB directly contains declaration of variable that DE implements (которую реализует элемент данных DE).   
+        
+    }
 }
 
 3.Переменные
 {
-	data element may implement variable.
-	name identifies variable within data frame.
-	global variable is a variable.
-	local variable is a variable.
-	static variable is a variable.
-	global block directly contains declaration of global variables.
-	global block, instruction set, function may directly contain declaration of static variable.
-	
-	
-	
-	{
-		//Область видимости
-		//переменная видна и переменная принадлежит блоку/функции/глобальному блоку УТВЕРЖДЕНИЯ ДОПИСАТЬ
-		if V - global variable, then V is visible in every instruction set IS or function.
-		if F1 - function, V1 - variable that declarated in F1, F2 - function, V2 - variable that declarated in F2, then V1 is not visible in F2 and V2 is not visible in F1.
-		if F - function, 
-		переменная видан в блоках, вложенных в функцию, если она там объявлена.
-	
-		//Время жизни
-		if V - global variable, then V exists.
-		
-		
-		
-		if V - local variable, F - function, F directly contains V, then V exists in all data frames after V declaration and before act F ending;
-		if V - sta
-		
-		
-		
-		//Упоминания переменной
-		if block data frame BDF of instruction set IS contains data element DE with name N1, FDF1 - function data frame that FDF1 contains BDF and ( there is no function data frames FDF2 > FDF1 ) and  ( there is no block data frame BDF2 > BDF and BDF2 contains data element with name N2 = N1 ) then N1 identifies DE in context IS.
-		 
-		if F - function, FDF1 - function data frame of F, DE - data element, N1 - name of DE, FDF1 directly contains DE and ( there is no function data frames FDF2 > FDF1 ) and ( there is no block data frame BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.
-		
-		if GDF - global data frame, DE - data element, N1 - name of DE, F - function, FDF1 - function data frame of F, GDF directly contains DE and ( there is no function data frames FDF2 > FDF1 ) and ( there is no block data frame BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.		
-		
-		if function F contains instruction set IS, N - name that identifies data element DE in block data frame BDF of instruction set IS1 that contains or equal IS and IS1 contains variable declaration VD of variable V with name N1=N and ( there is no instruction set IS2 that IS1 contains IS2 and F contains IS1 and F contains IS2 and IS2 contains variable declaration VD1 with name N2=N and IS2 contains or equal IS ), then N in IS refers V.
-		
-		if  F - function, DE - data element with name N, FDF - function data frame of F, FDF directly contains DE and N identifies DE in context F and F directly contains variable V declaration, then N in F refers V.
-		
-		if F - function, DE - data element with name N, GDF - global data frame, GDF directly contains DE and N identifies DE in context F, global block directly contains variable V declaration, then N in F refers V.
+    data element may implement variable.
+    name identifies variable within data frame.
+    global variable is a variable.
+    local variable is a variable.
+    static variable is a variable.
+    global block directly contains declaration of global variables.
+    global block, instruction set, function may directly contain declaration of static variable.
+        
+    {
+        
+        //Упоминания переменной
+        
+		if IS - instruction set, BDF1 - block data frame of IS, BDF2 - block data frame, DE - data element, N1 - name of DE, FDF1..FDF2 - function data frame, 
+		BDF1 contains DE and FDF1 contains BDF1 and ( there is no FDF2 > FDF1 ) and  ( there is no BDF2 > BDF1 and BDF2 contains data element with name N2 = N1 ), then N1 identifies DE in context IS.
+        
+		if F - function, FDF1 - function data frame of F, FDF2 - function data frame, BDF - block data frame, DE - data element, N1 - name of DE, FDF1 directly contains DE and ( there is no FDF2 > FDF1 ) and ( there is no BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.
+        
+        if GDF - global data frame, BDF - block data frame, DE - data element, N1 - name of DE, F - function, FDF1 - function data frame of F, FDF2 - function data frame, GDF directly contains DE and ( there is no FDF2 > FDF1 ) and ( there is no BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.      
+        
+		if F - function, IS1..IS3 - instruction sets, N1 - name, DE - data element, BDF - block data element of IS2, V1..V2 - variables, N2 - name of V1, VD1 - declaration of V1, N3 - name of V2, VD2 - declaration of V2, F contains IS1 and N1 identifies DE in BDF and IS2 contains or equals IS1 and IS2 contains VD1 and N2=N1 and ( there is no IS3 that IS2 contains IS3 and F contains IS2 and F contains IS3 and IS3 contains VD1 and N3=N1 and IS3 contains or equal IS1 ), then N in IS1 refers V.
+                
+        if  F - function, DE - data element with name N, FDF - function data frame of F, V - variable, VD - declaration of V, FDF directly contains DE and N identifies DE in context F and F directly contains VD, then N in F refers V.
+        
+        if F - function, DE - data element with name N, GDF - global data frame, V - variable, VD - declaration of V, GDF directly contains DE and N identifies DE in context F, global block directly contains VD, then N in F refers V.
 
+        if IS - instruction set, V - variable, VD - declaration of V, BDF - block data frame of IS, IS contains VD, BDF > VD then BDF contains data element corresponding to V
+        
+        //Область видимости
+        
+        
+        //переменная видна и переменная принадлежит блоку/функции/глобальному блоку УТВЕРЖДЕНИЯ ДОПИСАТЬ
+        if V - global variable, then V is visible in every instruction set or function.
+        if F1 - function, V1 - variable that declarated in F1, F2 - function, V2 - variable that declarated in F2, then V1 is not visible in F2 and V2 is not visible in F1.
+        if F - function, 
+        
+		if V - variable, N1 - name of V, N2 - name, IS - instruction set, N2=N1 and N2 in IS refers V then V is visible in IS.
+    
+        переменная видан в блоках, вложенных в функцию, если она там объявлена.
+    
+    
+        //Время жизни
+        if V - global variable, then V exists.
+        
+        if V - local variable, F - function, F directly contains V, then V exists in all data frames after V declaration and before act F ending;
+        if V - sta
+        
+		Конкретнее продумать, как описать существование переменной: не существует ли переменная с именем И, а существует ли переменная П с именем И.
 		
-	    if variable V with name N and instruction set IS contains name N1=N and N1 in IS refers V then V is visible in IS.
-		
-		if instruction set IS contains variable declaration VD of variable V, BDF - block data frame of IS that BDF > VD then BDF contains data element DE corresponding to V
-		
-		if instruction set IS is a variable declaration of variable V or data frame DF<<act of IS contains block data frame BDF with data element DE corresponding to V then V exists in act of IS #??? do we really need it
+        if IS - instruction set, IS is a variable declaration of variable V or data frame DF<<act of IS contains block data frame BDF with data element DE corresponding to V then V exists in act of IS #??? do we really need it
 
-		if instruction set IS contains variable declaration of variable V then any act of end IS ends existence of V
-		
-		//Связь упоминания имени с элементоv данных в глобальном кадре
-		if global data frame GDF contains data element ED with name N1, 
-	}
+        if instruction set IS contains variable declaration of variable V then any act of end IS ends existence of V
+    }
 
 
 }
 
 4.Функции
 {
-	function call stack is a part of data frame.
-	function call stack contains chain of function data frames.
-	function data frame contains block data frame.
-	block data frame directly contains in function data frame or block data frame
-	block data frame can't directly contain in global data frame.
-	function data frame contains formal parameters of this function.
-	formal parameter is a local variable.
-	header of function contains all formal parameters of this function.
-	
-	{
-		if program is single threaded, then ( there is a function call stack ).
-	}
+    function call stack is a part of data frame.
+    function call stack contains chain of function data frames.
+    function data frame contains block data frame.
+    block data frame directly contains in function data frame or block data frame
+    block data frame can't directly contain in global data frame.
+    function data frame contains formal parameters of this function.
+    formal parameter is a local variable.
+    header of function contains all formal parameters of this function.
+    
+    {
+        if program is single threaded, then ( there is a function call stack ).
+    }
 }
 
 
 5.Типы данных
 {
-	value, variable, return value have data type.
-	composite data type is a data type.
-	base data type is a data type.
-	
-	int is a data type.
-	short is a data type.
-	long is a data type.
-	long long is a data type.
-	char is a data type.
-	unsigned int is a data type.
-	signed int is a data type.
-	unsigned short is a data type.
-	signed short is a data type.
-	unsigned long is a data type.
-	signed long is a data type.
-	unsigned long long is a data type.
-	signed long long is a data type.
-	unsigned char is a data type.
-	signed char is a data type.
-	
-	float is a data type.
-	double is a data type.
-	long double is a data type.
-	bool is a data type.
-	
-	{
-		if value - V has data type bool, then V is true or false.
-		if value - V has data type char, then V is integer number in range [-128;127]
-		if value - V has data type unsigned char, then V is integer number in range [0;255]
-		...
-		
-		if data element - DE contains value - V with data type DT1, DE implements variable VAR with data type DT2, then DT1 = DT2 or DT1 can be converted to DT2.
-	}
+    value, variable, return value have data type.
+    composite data type is a data type.
+    base data type is a data type.
+    
+    int is a data type.
+    short is a data type.
+    long is a data type.
+    long long is a data type.
+    char is a data type.
+    unsigned int is a data type.
+    signed int is a data type.
+    unsigned short is a data type.
+    signed short is a data type.
+    unsigned long is a data type.
+    signed long is a data type.
+    unsigned long long is a data type.
+    signed long long is a data type.
+    unsigned char is a data type.
+    signed char is a data type.
+    
+    float is a data type.
+    double is a data type.
+    long double is a data type.
+    bool is a data type.
+    
+    {
+        if V - value, V has data type bool, then V is true or false.
+        if V - value, V has data type char, then V is integer number in range [-128;127]
+        if V - value, V has data type unsigned char, then V is integer number in range [0;255]
+        ...
+        
+        if DE - data element, V - value, VAR - variable, DE contains V, V has with data type DT1, DE implements VAR, VAR has data type DT2, then DT1 = DT2 or DT1 can be converted to DT2.
+    }
 
 
 }

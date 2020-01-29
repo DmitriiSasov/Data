@@ -18,9 +18,8 @@
         if L - loop do while or while, C - condition of L, B - body of L, then in every act of L after act of Bi evaluation of C is triggered and if C is true, then Ti+1 act exists.
         if L - loop for, VI - variable initialization of L, E - expression, VI contains E, then every act of VI triggers evaluation of E.
         if L - loop for, C - condition of L, B - body of L, T - transition, E - expression, T contains E, then in every act of L act of Ti triggers evaluation of E.
-        if L - loop for, C - condition of L, B - body of L, T - transition, then in every act L after act of Ti evaluation of C is triggered and if C is true, then act of Ti+1 and 
-        Bi+1 exist.
-        if A - act, E - expression, O_1..O_N - operands of E, DF1..DF2 - data frames, A triggers evaluation of E and E contains operators that have side effect on O_1..O_N and DF1 < (before) A, then DF2 must be after A and all data elements in DF2, except data elements consistent with O_1..O_N, have values that equal values in DF1.
+        if L - loop for, C - condition of L, B - body of L, T - transition, then in every act L after act of Ti evaluation of C is triggered and if C is true, then act of Ti+1 and Bi+1 exists.
+        if A - act, E - expression, O_1..O_N - operands of E, DF1..DF2 - data frames, A triggers evaluation of E and E contains operators that have side effect on O_1..O_N and DF1 < (before) A, then DF2 must be after A and all data elements in DF2, except data elements consistent with O_1..O_N, have values that equal values in DF1.		
     }
 
     name of variable is a mentioning of data element.
@@ -67,9 +66,27 @@
         //Порядок следования кадров функций и блоков
         
         if A - act of algorithm element, A contains operator that may have side effect, then ( there is data frame after A ).
+		{
+			A - act of algorithm element, A contains operator that may have side effect, but ( there is no data frame after A ).
+		}
+		
         if A - act of algorithm element, A doesn't contains operator that may have side effect, then ( there is no data frame after A ).
+		{
+			A - act of algorithm element, A doesn't contains operator that may have side effect, but ( there is data frame after A ).
+		}
+		
         if A - beginning or ending of instruction set, then ( there is data frame after A ).
+		{
+			A - beginning or ending of instruction set, but ( there is no data frame after A ).
+		}
+		
         if A - beginning of main function act, then data frame before A contains only global data frame.
+		{
+			A - beginning of main function act, but data frame before A doesn't contains global data frame.
+			A - beginning of main function act, but data frame before A contains global data frame and function data frame or block data frame.
+			A - beginning of main function act, but there is no data frame before A.
+		}
+		
         if A - fisrt act in trace, then data frame before A contains only empty global data frame.
         if DF - global data frame, then DF > any function data frame or block data frame. (не вложен в них)
         
@@ -77,7 +94,7 @@
         //Возникновение элемента данных
             
         if DF1..DF2 - data frames, S - statement, F - function, K1 - count of data elements in DF1, FDF - function data frame of F, M1 - count of data elements in FDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in FDF in DF2,  DF1 and DF2 are sequential data frames and DF1 and DF2 contains FDF and ( there is act A of S between DF1 and DF2) and F contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and K2th data element implements variable with name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
-                
+        
         if DF1..DF2 - data frames, S - statement, IS - instruction set, K1 - count of data elements in DF1, BDF - block data frame of IS, M1 - count of data elements in BDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in BDF in DF2, DF1 and DF2 are sequential data frames and DF1 and DF2 contains BDF ( there is act A of S between DF1 and DF2 ) and IS contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and K2th data element implements variable with name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
         
         if DF1..DF2 - data frames, S - statement, BG - global block, K1 - count of data elements in DF1, GDF - global data frame of GB, M1 - count of data elements in GDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in GDF in DF2, DF1 and DF2 are sequential data frames and ( there is act A of S between DF1 and DF2 ) and GB contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and K2th data element implements variable with name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
@@ -132,11 +149,17 @@
 		
 		if GDF - global data frame, GB - global block, DE - data element, N - name of DE, GDF directly contains DE, then N identifies DE in context GB.      
 		
-		if F - function, IS1..IS3 - instruction sets, N1 - name, DE - data element, BDF - block data element of IS2, V1..V2 - variables, N2 - name of V1, VD1 - declaration of V1, N3 - name of V2, VD2 - declaration of V2, F contains IS1 and N1 identifies DE in BDF and IS2 contains or equals IS1 and IS2 contains VD1 and N2=N1 and ( there is no IS3 that IS2 contains IS3 and F contains IS2 and F contains IS3 and IS3 contains VD1 and N3=N1 and IS3 contains or equal IS1 ), then N in IS1 refers V.
+		if F - function, IS1..IS3 - instruction sets, N1 - name, DE - data element, BDF - block data element of IS2, V1..V2 - variables, N2 - name of V1, VD1 - declaration of V1, N3 - name of V2, VD2 - declaration of V2, F contains IS1 and N1 identifies DE in BDF and IS2 contains or equals IS1 and IS2 contains VD1 and N2=N1 and ( there is no IS3 that IS2 contains IS3 and F contains IS2 and F contains IS3 and IS3 contains VD2 and N3=N1 and IS3 contains or equal IS1 ), then N in IS1 refers V1.
+		
+		if F - function, IS - instruction set, BDF - block data frame of IS, DE - data element with name N, FDF - function data frame of F, V - variable, VD - declaration of V, FDF directly contains DE and FDF contains BDF and N identifies DE in context IS and F directly contains VD, then N in IS refers V.
+        
+		if IS - instruction set, BDF - block data frame of IS, DE - data element with name N, GDF - global data frame, V - variable, VD - declaration of V, GDF directly contains DE and GDF contains BDF and N identifies DE in context IS and F directly contains VD, then N in IS refers V.
                 
         if F - function, DE - data element with name N, FDF - function data frame of F, V - variable, VD - declaration of V, FDF directly contains DE and N identifies DE in context F and F directly contains VD, then N in F refers V.
         
-        if F - function, DE - data element with name N, GDF - global data frame, V - variable, VD - declaration of V, GDF directly contains DE and N identifies DE in context F, global block directly contains VD, then N in F refers V.
+        if F - function, DE - data element with name N, GDF - global data frame, V - variable, VD - declaration of V, GDF directly contains DE and N identifies DE in context F and global block directly contains VD, then N in F refers V.
+		
+		if GDF - global data frame, GB - global block, DE - data element, N - name of DE, V - variable, VD - declaration of V, GDF directly contains DE and N identifies DE in context GB and GB directly contains VD then N in GB refers V.
 
         if IS - instruction set, V - variable, VD - declaration of V, BDF - block data frame of IS, IS contains VD, BDF > VD then BDF contains data element corresponding to V.
         

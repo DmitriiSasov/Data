@@ -120,19 +120,25 @@
         //Упоминания переменной
         
 		if IS - instruction set, BDF1 - block data frame of IS, BDF2 - block data frame, DE - data element, N1 - name of DE, FDF1..FDF2 - function data frame, 
-		BDF1 contains DE and FDF1 contains BDF1 and ( there is no FDF2 > FDF1 ) and  ( there is no BDF2 > BDF1 and BDF2 contains data element with name N2 = N1 ), then N1 identifies DE in context IS.
+		BDF1 contains DE and FDF1 contains BDF1 and ( there is no FDF2 > FDF1 ) and ( there is no BDF2 > BDF1 and BDF2 contains data element with name N2 = N1 ), then N1 identifies DE in context IS.
+		
+		if IS - instruction set, BDF1 - block data frame of IS, BDF2 - block data frame, DE - data element, N1 - name of DE, F - function, FDF1 - function data frame of F, FDF2 - function data frame, FDF1 contains DE and FDF1 contains BDF1 and F contains IS and ( there is no FDF2 > FDF1 ) and ( there is no BDF2 > FDF1 and BDF2 contains data element with name N2 = N1 ), then N1 identifies DE in context IS.
+		
+		if IS - instruction set, BDF1 - block data frame of IS, BDF2 - block data frame, DE - data element, N1 - name of DE, FDF1..FDF2 - function data frame, GDF - global data frame,	GDF contains DE and FDF1 contains BDF1 and ( there is no FDF2 > FDF1 ) and ( there is no BDF2 > FDF1 and BDF2 contains data element with name N2 = N1 ), then N1 identifies DE in context IS.
         
 		if F - function, FDF1 - function data frame of F, FDF2 - function data frame, BDF - block data frame, DE - data element, N1 - name of DE, FDF1 directly contains DE and ( there is no FDF2 > FDF1 ) and ( there is no BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.
         
         if GDF - global data frame, BDF - block data frame, DE - data element, N1 - name of DE, F - function, FDF1 - function data frame of F, FDF2 - function data frame, GDF directly contains DE and ( there is no FDF2 > FDF1 ) and ( there is no BDF > FDF1 and BDF contains data element with name N2 = N1 ), then N1 identifies DE in context F.      
-        
+		
+		if GDF - global data frame, GB - global block, DE - data element, N - name of DE, GDF directly contains DE, then N identifies DE in context GB.      
+		
 		if F - function, IS1..IS3 - instruction sets, N1 - name, DE - data element, BDF - block data element of IS2, V1..V2 - variables, N2 - name of V1, VD1 - declaration of V1, N3 - name of V2, VD2 - declaration of V2, F contains IS1 and N1 identifies DE in BDF and IS2 contains or equals IS1 and IS2 contains VD1 and N2=N1 and ( there is no IS3 that IS2 contains IS3 and F contains IS2 and F contains IS3 and IS3 contains VD1 and N3=N1 and IS3 contains or equal IS1 ), then N in IS1 refers V.
                 
         if F - function, DE - data element with name N, FDF - function data frame of F, V - variable, VD - declaration of V, FDF directly contains DE and N identifies DE in context F and F directly contains VD, then N in F refers V.
         
         if F - function, DE - data element with name N, GDF - global data frame, V - variable, VD - declaration of V, GDF directly contains DE and N identifies DE in context F, global block directly contains VD, then N in F refers V.
 
-        if IS - instruction set, V - variable, VD - declaration of V, BDF - block data frame of IS, IS contains VD, BDF > VD then BDF contains data element corresponding to V
+        if IS - instruction set, V - variable, VD - declaration of V, BDF - block data frame of IS, IS contains VD, BDF > VD then BDF contains data element corresponding to V.
         
         //Область видимости
         

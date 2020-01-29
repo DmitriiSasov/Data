@@ -159,6 +159,9 @@
 		if GDF - global data frame, GB - global block, DE - data element, N - name of DE, GDF directly contains DE, then N identifies DE in context GB.      
 		
 		if F - function, IS1..IS3 - instruction sets, N1 - name, DE - data element, BDF - block data element of IS2, V1..V2 - variables, N2 - name of V1, VD1 - declaration of V1, N3 - name of V2, VD2 - declaration of V2, F contains IS1 and N1 identifies DE in BDF and IS2 contains or equals IS1 and IS2 contains VD1 and N2=N1 and ( there is no IS3 that IS2 contains IS3 and F contains IS2 and F contains IS3 and IS3 contains VD2 and N3=N1 and IS3 contains or equal IS1 ), then N in IS1 refers V1.
+		{
+			F - function, IS1..IS3 - instruction sets, N1 - name, DE - data element, BDF - block data element of IS2, V1..V2 - variables, N2 - name of V1, VD1 - declaration of V1, N3 - name of V2, VD2 - declaration of V2, F contains IS1 and N1 identifies DE in BDF and IS2 contains or equals IS1 and IS2 contains VD1 and N2=N1 and ( there is no IS3 that IS2 contains IS3 and F contains IS2 and F contains IS3 and IS3 contains VD2 and N3=N1 and IS3 contains or equal IS1 ), but N in IS1 refers V3 and V3 != V1.		
+		}
 		
 		if F - function, IS - instruction set, BDF - block data frame of IS, DE - data element with name N, FDF - function data frame of F, V - variable, VD - declaration of V, FDF directly contains DE and FDF contains BDF and N identifies DE in context IS and F directly contains VD, then N in IS refers V.
         

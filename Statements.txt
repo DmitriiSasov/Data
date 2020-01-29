@@ -116,7 +116,7 @@
     global block, instruction set, function may directly contain declaration of static variable.
         
     {
-        
+       
         //Упоминания переменной
         
 		if IS - instruction set, BDF1 - block data frame of IS, BDF2 - block data frame, DE - data element, N1 - name of DE, FDF1..FDF2 - function data frame, 
@@ -128,7 +128,7 @@
         
 		if F - function, IS1..IS3 - instruction sets, N1 - name, DE - data element, BDF - block data element of IS2, V1..V2 - variables, N2 - name of V1, VD1 - declaration of V1, N3 - name of V2, VD2 - declaration of V2, F contains IS1 and N1 identifies DE in BDF and IS2 contains or equals IS1 and IS2 contains VD1 and N2=N1 and ( there is no IS3 that IS2 contains IS3 and F contains IS2 and F contains IS3 and IS3 contains VD1 and N3=N1 and IS3 contains or equal IS1 ), then N in IS1 refers V.
                 
-        if  F - function, DE - data element with name N, FDF - function data frame of F, V - variable, VD - declaration of V, FDF directly contains DE and N identifies DE in context F and F directly contains VD, then N in F refers V.
+        if F - function, DE - data element with name N, FDF - function data frame of F, V - variable, VD - declaration of V, FDF directly contains DE and N identifies DE in context F and F directly contains VD, then N in F refers V.
         
         if F - function, DE - data element with name N, GDF - global data frame, V - variable, VD - declaration of V, GDF directly contains DE and N identifies DE in context F, global block directly contains VD, then N in F refers V.
 
@@ -155,9 +155,11 @@
         
 		Конкретнее продумать, как описать существование переменной: не существует ли переменная с именем И, а существует ли переменная П с именем И.
 		
-        if IS - instruction set, IS is a variable declaration of variable V or data frame DF<<act of IS contains block data frame BDF with data element DE corresponding to V then V exists in act of IS #??? do we really need it
-
-        if instruction set IS contains variable declaration of variable V then any act of end IS ends existence of V
+		if IS - instruction set, V - variable, VD - declaration of V, IS contains VD, then V exists in acts A1..AN and Ai > act of VD and Ai < act of ending of IS, 1 <= i <= N.
+		
+		if F - function, V - variable, VD - declaration of V, F contains VD, then V exists in acts A1..AN and Ai > act of VD and Ai < act of ending of F, 1 <= i <= N.
+		
+		if GB - global block, V - variable, VD - declaration of V, GB contains VD, then V exists in acts A1..AN and Ai > act of VD and Ai < act of ending of GB, 1 <= i <= N.
     }
 
 

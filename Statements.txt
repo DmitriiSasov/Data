@@ -76,11 +76,11 @@
         
         //Возникновение элемента данных
             
-        if DF1..DF2 - data frames, S - statement, F - function, K1 - count of data elements in DF1, FDF - function data frame of F, M1 - count of data elements in FDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in FDF in DF2,  DF1 and DF2 are sequential data frames and DF1 and DF2 contains FDF and ( there is act A of S between DF1 and DF2) and F contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+        if DF1..DF2 - data frames, S - statement, F - function, K1 - count of data elements in DF1, FDF - function data frame of F, M1 - count of data elements in FDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in FDF in DF2,  DF1 and DF2 are sequential data frames and DF1 and DF2 contains FDF and ( there is act A of S between DF1 and DF2) and F contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and K2th data element implements variable with name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
                 
-        if DF1..DF2 - data frames, S - statement, IS - instruction set, K1 - count of data elements in DF1, BDF - block data frame of IS, M1 - count of data elements in BDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in BDF in DF2, DF1 and DF2 are sequential data frames and DF1 and DF2 contains BDF ( there is act A of S between DF1 and DF2 ) and IS contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+        if DF1..DF2 - data frames, S - statement, IS - instruction set, K1 - count of data elements in DF1, BDF - block data frame of IS, M1 - count of data elements in BDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in BDF in DF2, DF1 and DF2 are sequential data frames and DF1 and DF2 contains BDF ( there is act A of S between DF1 and DF2 ) and IS contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and K2th data element implements variable with name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
         
-        if DF1..DF2 - data frames, S - statement, BG - global block, K1 - count of data elements in DF1, GDF - global data frame of GB, M1 - count of data elements in GDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in GDF in DF2, DF1 and DF2 are sequential data frames and ( there is act A of S between DF1 and DF2 ) and GB contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
+        if DF1..DF2 - data frames, S - statement, BG - global block, K1 - count of data elements in DF1, GDF - global data frame of GB, M1 - count of data elements in GDF in DF1, K2 - count of data elements in DF2, M2 - count of data elements in GDF in DF2, DF1 and DF2 are sequential data frames and ( there is act A of S between DF1 and DF2 ) and GB contains S and S contains declaration of variable with name N, then K2 = K1 + 1 and K2th data element has name N and K2th data element implements variable with name N and M2 = M1 + 1 and 0..K1 data elements are equal in DF1 and DF2.
                 
         if IS - instruction set, V - variable, VD - declaration of V, A - act of VD, IS contains VD, then in any act of IS all data frames after A and before ending of act of IS contains data element that implements V.
         
@@ -116,7 +116,7 @@
     global block, instruction set, function may directly contain declaration of static variable.
         
     {
-       
+        
         //Упоминания переменной
         
 		if IS - instruction set, BDF1 - block data frame of IS, BDF2 - block data frame, DE - data element, N1 - name of DE, FDF1..FDF2 - function data frame, 
